@@ -175,3 +175,13 @@ chap plot-backtest \
 ```
 
 See the [evaluation workflow docs](https://chap.dhis2.org/chap-modeling-platform/chap-cli/evaluation-workflow/) for available plot types and output formats.
+
+## Troubleshooting
+
+Plot types, flags and defaults can change between chap-core releases. 
+This guide has been verified for version 1.4.0 and 2.1.0.
+
+```bash
+chap --version            # see your installed chap-core version
+uv tool upgrade chap-core                  # get the latest version
+```

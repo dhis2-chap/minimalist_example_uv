@@ -170,8 +170,8 @@ The `--plot` flag on `chap eval` writes a default evaluation plot next to the Ne
 ```bash
 chap plot-backtest \
     --input-file output/eval.nc \
-    --output-file output/metrics_dashboard.html \
-    --plot-type metrics_dashboard
+    --output-file output/evaluation_plot.html \
+    --plot-type evaluation_plot
 ```
 
 See the [evaluation workflow docs](https://chap.dhis2.org/chap-modeling-platform/chap-cli/evaluation-workflow/) for available plot types and output formats.

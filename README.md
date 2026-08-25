@@ -148,21 +148,40 @@ entry_points:
     command: "python predict.py {model} {historic_data} {future_data} {out_file}"
 ```
 
-After you have installed chap-core ([installation instructions](https://dhis2-chap.github.io/chap-core/chap-cli/chap-core-cli-setup.html)), you can run this minimalist model through CHAP as follows:
+After you have installed chap-core ([installation instructions](https://chap.dhis2.org/chap-modeling-platform/chap-cli/chap-core-cli-setup/)), you can run this minimalist model through CHAP as follows:
+
+From inside the model directory:
 
 ```bash
-chap evaluate --model-name /path/to/minimalist_example_uv --dataset-name ISIMIP_dengue_harmonized --dataset-country brazil --report-filename report.pdf
+chap eval --model-name . --dataset-csv input/trainData.csv --output-file output/eval.nc --plot
 ```
 
 **Parameters:**
 
-- `--model-name`: Path to your local model directory (where MLproject is located)
-- `--dataset-name`: The evaluation dataset to use
-- `--dataset-country`: Country filter for the dataset
-- `--report-filename`: Output PDF report
+- `--model-name`: Path to the model directory (where `MLproject` is located).
+- `--dataset-csv`: Path to a CSV with columns `time_period`, `location`, `disease_cases`, `rainfall`, `mean_temperature`. The bundled `input/trainData.csv` is synthetic and intended only for demonstration — for more realistic runs, see `example_data/laos_subset.csv` in the [chap-core repository](https://github.com/dhis2-chap/chap-core).
+- `--output-file`: Output NetCDF file with backtest results.
+- `--plot`: Also write an HTML evaluation plot next to the NetCDF file.
 
-Or if you have a local CSV dataset:
+## Plotting evaluation results
+
+The `--plot` flag on `chap eval` writes a default evaluation plot next to the NetCDF file. To generate a different plot type from an existing `.nc` file without rerunning the backtest, use `chap plot-backtest`:
 
 ```bash
-chap evaluate --model-name /path/to/minimalist_example_uv --dataset-csv your_data.csv --report-filename report.pdf
+chap plot-backtest \
+    --input-file output/eval.nc \
+    --output-file output/evaluation_plot.html \
+    --plot-type evaluation_plot
+```
+
+See the [evaluation workflow docs](https://chap.dhis2.org/chap-modeling-platform/chap-cli/evaluation-workflow/) for available plot types and output formats.
+
+## Troubleshooting
+
+Plot types, flags and defaults can change between chap-core releases. 
+This guide has been verified for version 1.4.0 and 2.1.0.
+
+```bash
+chap --version            # see your installed chap-core version
+uv tool upgrade chap-core                  # get the latest version
 ```
